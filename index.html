@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Envelope Story</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: Georgia, serif;
+    background: #f2f2f2;
+    overflow: hidden;
+}
+
+/* ENVELOPE */
+.envelope {
+    width: 420px;
+    height: 280px;
+    background: #fff8e7;
+    border: 3px solid #b22222;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f4e2c4;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: 1s;
+}
+
+.envelope.open::before {
+    transform: rotateX(180deg);
+}
+
+/* SEAL */
+.seal {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, #ffd700, #c99700);
+    border-radius: 50%;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    animation: glow 1.5s infinite;
+}
+
+@keyframes glow {
+    50% { box-shadow: 0 0 30px rgba(255,200,0,1); }
+}
+
+/* PAGE */
+.page {
+    position: absolute;
+    inset: 0;
+    display: none;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+/* PAPER STYLE */
+.paper-style {
+    background:
+      radial-gradient(circle at top left, rgba(120,70,20,0.3), transparent 40%),
+      radial-gradient(circle at bottom right, rgba(120,70,20,0.3), transparent 40%),
+      linear-gradient(#f6e7c1, #f1dba8);
+    border-radius: 6px;
+    font-size: 22px;
+    white-space: pre-wrap;
+}
+
+/* BUTTON */
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #b22222;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* FORM */
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #fff8e7;
+    border-radius: 8px;
+}
+
+/* QUESTION LABEL */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* MESSAGE */
+.msg {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* SHAYARI */
+#shayariPage {
+    text-align: center;
+    font-size: 26px;
+    padding-top: 100px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+<div class="envelope" onclick="openEnvelope()">
+    <div class="seal">OPEN</div>
+</div>
+
+<!-- FIRST PARAGRAPH -->
+<div class="page paper-style" id="letterPage">
+<div id="letter"></div>
+<button onclick="openQuestions()">Next ➜</button>
+</div>
+
+<!-- QUESTIONS -->
+<div class="page" id="questionsPage">
+
+<h2 style="text-align:center;"> kuch sawaal hai tere liye 💭</h2>
+
+<form class="qForm">
+<label>1. kaisi ho aur ghar pe sab thik ?</label>
+<input name="q1" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<form class="qForm">
+<label>2. holi me ghar nhi gyi thee ?</label>
+<input name="q2" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<form class="qForm">
+<label>3. shaadi ho gya tumhara ?</label>
+<input name="q3" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<form class="qForm">
+<label>4. yrr tu itni jaldi shaadi ke liye haa kyun bol di thee ?</label>
+<input name="q4" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<form class="qForm">
+<label>5. shaadi ke baad sasural v gyi hogi ?</label>
+<input name="q5" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<form class="qForm">
+<label>6. mein tujhe itna pasand karta tha .tumhe mere upar bharosa nhi thaa ?</label>
+<input name="q6" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<form class="qForm">
+<label>7. any feedback for me ?</label>
+<input name="q7" placeholder="Type your answer..." required>
+<button type="submit">Send 💌</button>
+<span class="msg"></span>
+</form>
+
+<div style="text-align:center;">
+<button onclick="openSecondPara()">Next ➜</button>
+</div>
+
+</div>
+
+<!-- SECOND PARAGRAPH -->
+<div class="page paper-style" id="secondPara">
+<p>
+Ek sawal aaj bhi mann mein hai…
+Tumne itni jaldi shaadi ke liye haan kyun bol di?,<br><br>
+Par jo dil mehsoos karta hai,<br>
+wo lafzon se bhi gehra hota hai... ❤️
+</p>
+<button onclick="openShayari()">Next ➜</button>
+</div>
+
+<!-- SHAYARI -->
+<div class="page" id="shayariPage">
+<p>
+"Tum mile toh laga zindagi mil gayi,<br>
+warna hum toh bas waqt guzaar rahe the... ❤️"
+</p>
+</div>
+
+<script>
+const text = `Hii. Rimjhim ,
+
+How are you? I hope you’re doing well. Sab theek chal raha hoga na? Shayad tumhari shaadi bhi ho gayi hogi… pata nahi kyun, par yeh sab soch ke ajeeb sa lagta hai..
+
+Sabse pehle, thank you… mujhe unblock karne ke liye. Sach bolu toh mujhe bilkul bhi ummeed nahi thi ki tum kabhi unblock karogi.
+
+Jab tum gayi thi na… uss waqt main sach mein toot gaya tha. Us din jab tumne bataya, mere haath-pair kaamp rahe the. Kuch din tak saans lena tak mushkil ho gaya tha. Ghar mein rehna bhi ajeeb lag raha tha, isliye raat tak bahar ghoomta rehta tha. Bohot ajeeb khayal aate the… sab kuch khatam jaisa lagta tha.
+
+Main jhoot nahi bolunga — main tumse bohot pyaar karta tha. Shayad tumhe kabhi samajh nahi aaya hoga ki tum mere liye kitni important thi. Tum meri first crush thi, aur phir dheere-dheere tum meri best friend ban gayi. Main kabhi bol nahi paaya, par tum mere liye bohot special thi..
+
+Jab tum chali gayi, main 5-6 din tak roz chup-chup ke rota tha. Ghar ke kone mein baith ke rota tha taaki koi dekh na le. Khana tak theek se nahi kha paata tha. Phir main kuch din ke liye gaon chala gaya, kyunki wahan rehna mushkil ho raha tha. Dheere-dheere thoda normal hua… par aaj bhi kabhi-kabhi tumhari yaad aa hi jaati hai.
+
+Kabhi kabhi ab bhi mann karta hai zor se ro lun ya kahin akela jaake chillau… par ab aansu bhi nahi aate. Shayad dil thoda pathar sa ho gaya hai.
+
+Tumhare jaane ke baad doston ne kaafi support kiya. Unhe exact pata nahi tha kya hua, par unhe samajh aa raha tha ki main theek nahi hoon. Unhone mere saath time spend kiya, aur shayad unki wajah se hi main dheere-dheere sambhal paya.
+
+Main tumhe ek baat sach-sach bolna chahta hoon… mujhe tumse thoda gussa bhi hai. Tumhe yaad hai maine tumhe Anurag ke baare mein bataya tha? Ki woh 12th mein fail ho gaya tha… maine tum par trust karke bataya tha. Par jab woh baat us tak pahunchi, usse laga ki maine bataya hoga. Us wajah se meri usse dosti toot gayi. Shayad tumne jaan ke nahi kiya hoga, par uss cheez ne mujhe hurt kiya.
+
+Par pata hai… itna sab hone ke baad bhi, main poori tarah nafrat nahi kar paaya. Kyunki tumhari yaadon mein bohot saari achhi cheezein bhi hain.
+
+Yaad hai, tum bina pooche kitni baatein batati rehti thi… nonstop bakbak karti rehti thi. Sach kahun toh mujhe woh sab bohot pasand tha. Main bas sunta rehta tha aur sochta tha — kitni achhi ladki hai yaar.
+
+Aur pata hai, main kis baat se khush ho jaata hoon kabhi-kabhi?
+Yeh soch ke… ki jo meri school crush thi, main usse baat kar paya. Main uska dost bana. Yeh cheez hi mere liye bohot badi thi. Maine kabhi socha bhi nahi tha ki yeh possible hoga.
+
+Tumhare jaane ke baad maine tumhari photos, chats sab delete kar diye the… doston ke kehne par. Par phir bhi kabhi-kabhi Instagram pe tumhari profile dekh leta tha, ya blog check kar leta tha. Dheere-dheere aadat chhoot gayi… par yaadein nahi gayi.
+
+Ek aur baat… shayad tumhe kabhi nahi pata chalega. Main ek baar tumhare gaon bhi gaya tha. Tumne kabhi location bheji thi na… maine usse search karke tumhara gaon dekha. Logon se tumhare ghar ke baare mein bhi poocha. Bas door se dekha… par tumhe kabhi bataya nahi.
+
+Aur JNU wali baat… main wahan admission le sakta tha. Main tumse milne bhi gaya tha. Tumhe dekha bhi… black t-shirt mein, hostel ke bahar. Par himmat nahi hui tumse baat karne ki. Shayad dar tha… ya phir kuch aur. Isliye wahan admission bhi nahi liya.
+
+Aur ek baat aur…
+Pehle mujhe Bhagwan par bohot bharosa tha. Lagta tha jo hoga, achha hoga. Par tumhare jaane ke baad pata nahi kyun woh bharosa thoda kam ho gaya. Mandir aaj bhi jaata hoon… par ab kuch maangta nahi hoon.
+
+Aaj bhi jab purane din yaad aate hain — jab hum roz baat karte the, haste the — toh achha bhi lagta hai aur thoda bura bhi.
+
+Main bas itna kehna chahta hoon…
+Tum meri life ka ek bohot important hissa thi. Aur shayad hamesha rahogi.
+
+Khush raho… jahan bhi raho.
+– Vikram
+`;
+
+function openEnvelope() {
+    document.querySelector(".envelope").style.display = "none";
+    document.getElementById("letterPage").style.display = "block";
+    typeLetter();
+}
+
+function typeLetter() {
+    let i = 0;
+    const target = document.getElementById("letter");
+
+    const interval = setInterval(() => {
+        target.innerHTML += text[i];
+        i++;
+        if (i >= text.length) clearInterval(interval);
+    }, 40);
+}
+
+function openQuestions() {
+    hideAll();
+    document.getElementById("questionsPage").style.display = "block";
+}
+
+function openSecondPara() {
+    hideAll();
+    document.getElementById("secondPara").style.display = "block";
+}
+
+function openShayari() {
+    hideAll();
+    document.getElementById("shayariPage").style.display = "block";
+}
+
+function hideAll() {
+    document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+}
+
+/* AJAX SUBMIT */
+document.querySelectorAll(".qForm").forEach(form => {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const data = new FormData(form);
+        const msg = form.querySelector(".msg");
+
+        try {
+            const res = await fetch("https://formspree.io/f/xkozaydp", {
+                method: "POST",
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (res.ok) {
+                msg.innerHTML = "✅ Answer sent!";
+                msg.style.color = "green";
+                form.reset();
+            } else {
+                msg.innerHTML = "❌ Error!";
+                msg.style.color = "red";
+            }
+        } catch {
+            msg.innerHTML = "❌ Network error!";
+            msg.style.color = "red";
+        }
+    });
+});
+</script>
+
+</body>
+</html>
